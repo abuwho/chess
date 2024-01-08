@@ -1,10 +1,15 @@
 <script setup lang="ts">
-import HomeView from './views/HomeView.vue';
+import ChessBoard from './components/ChessBoard.vue';
 </script>
 
 <template>
-  <HomeView />
+  <main>
+    <h1 style="display: flex; justify-content: center;">Chess Game</h1>
+
+    <ChessBoard />
+  </main>
 </template>
 
 <style scoped>
+
 </style>
