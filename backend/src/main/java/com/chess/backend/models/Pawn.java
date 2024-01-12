@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pawn extends Piece {
-
     public Pawn(PieceColor color, int row, int col, PieceType type) {
         super(color, row, col, type);
     }
 
     private Boolean isFirstMove() {
-        return (getColor() == PieceColor.WHITE && getRow() == 1) || (getColor() == PieceColor.BLACK && getRow() == 6);
+        return (getColor() == PieceColor.WHITE && getRow() == 6) || (getColor() == PieceColor.BLACK && getRow() == 1);
     }
     
     public List<Move> getValidMoves() {
@@ -21,7 +20,7 @@ public class Pawn extends Piece {
     public List<Move> getValidMoves(Board board) {
         List<Move> validMoves = new ArrayList<>();
         
-        int direction = (getColor().equals(PieceColor.WHITE)) ? 1 : -1;
+        int direction = (getColor().equals(PieceColor.WHITE)) ? -1 : 1;
 
         // Move one square forward
         int newRow = getRow() + direction;
@@ -44,5 +43,7 @@ public class Pawn extends Piece {
 
         return validMoves;
     }
+
+
 
 }

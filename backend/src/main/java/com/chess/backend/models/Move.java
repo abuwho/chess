@@ -59,4 +59,16 @@ public class Move {
         return piece + " from (" + startRow + ", " + startCol + ") to (" + endRow + ", " + endCol + ")";
     }
 
+    @Override
+    public boolean equals(Object obj) {
+
+        Move move = (Move) obj;
+
+        if (move.getStartRow() == this.getStartRow() && move.getStartCol() == this.getStartCol() && move.getEndRow() == this.getEndRow() && move.getEndCol() == this.getEndCol() && move.getPiece().equals(this.getPiece())) {
+            return true;
+        }
+        
+        return true;
+    }
+
 }

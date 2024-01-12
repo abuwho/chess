@@ -1,5 +1,7 @@
 package com.chess.backend.models;
 
+import java.util.List;
+
 public class Game {
     private Board board;
     private Player whitePlayer;
@@ -43,8 +45,19 @@ public class Game {
 
     public void movePiece(int oldRow, int oldCol, int newRow, int newCol) {
         Piece piece = board.getPiece(oldRow, oldCol);
-        board.setPiece(newRow, newCol, piece);
-        board.setPiece(oldRow, oldCol, new EmptySquare(PieceColor.NULL, oldRow, oldCol, PieceType.EMPTY));
+        Move move = new Move(piece, oldRow, oldCol, newRow, newCol);
+        try {
+            List<Move> validMoves = piece.getValidMoves(board);
+
+            for (Move mv : validMoves) {
+                if (mv.equals(move)) {
+                    board.setPiece(newRow, newCol, piece);
+                    board.setPiece(oldRow, oldCol, new EmptySquare(PieceColor.NULL, oldRow, oldCol, PieceType.EMPTY));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void movePiece(Piece piece, int newRow, int newCol) {

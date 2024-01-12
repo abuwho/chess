@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Move",
+            "request": "launch",
+            "mainClass": "com.chess.backend.models.Move",
+            "projectName": "backend"
+        },
+        {
+            "type": "java",
             "name": "Game",
             "request": "launch",
             "mainClass": "com.chess.backend.models.Game",
