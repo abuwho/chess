@@ -2,6 +2,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Game",
+            "request": "launch",
+            "mainClass": "com.chess.backend.models.Game",
+            "projectName": "backend"
+        },
+        {
+            "type": "java",
+            "name": "Board",
+            "request": "launch",
+            "mainClass": "com.chess.backend.models.Board",
+            "projectName": "backend"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-BackendApplication<backend>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
