@@ -1,6 +1,5 @@
 package com.chess.backend.models;
 
-import org.springframework.data.geo.format.PointFormatter;
 
 public class Board {
     private Piece[][] board;
@@ -56,33 +55,6 @@ public class Board {
         board[row][col] = piece;
     }
 
-    public String toFenString() {
-
-        StringBuilder fenString = new StringBuilder();
-
-        // board
-        for (int i = 0; i < 8; i++) {
-            int emptySquares = 0;
-            for (int j = 0; j < 8; j++) {
-                Piece piece = board[i][j];
-                if (piece.getType() == PieceType.EMPTY) {
-                    emptySquares++;
-                } else {
-                    if (piece.getColor() == PieceColor.WHITE) fenString.append(piece.getType().toString().charAt(0));
-                    else if (piece.getColor() == PieceColor.BLACK) fenString.append(piece.getType().toString().toLowerCase().charAt(0));
-                }
-            }
-            if (emptySquares > 0) {
-                fenString.append(emptySquares);
-                emptySquares = 0;
-            }
-
-            if (i != 7) fenString.append('/');
-        }
-
-        return fenString.toString();
-    }
-
     public void printBoard() {
         for (int i = 0; i < 8; i++) {
             System.out.print(8 - i + " ");
@@ -94,10 +66,5 @@ public class Board {
         System.out.println("  a \t b \t c \t d \t e \t f \t g \t h");
     }
 
-    public static void main(String[] args) {
-        Board board = new Board();
-        board.printBoard();
-        System.out.println(board.toFenString());
-    }
 
 }
