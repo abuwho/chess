@@ -6,7 +6,6 @@ import jakarta.persistence.Entity;
 
 
 
-@Entity
 public class Game {
 
     private Board board;
