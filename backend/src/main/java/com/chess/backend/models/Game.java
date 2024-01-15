@@ -2,10 +2,6 @@ package com.chess.backend.models;
 
 import java.util.List;
 
-import jakarta.persistence.Entity;
-
-
-
 public class Game {
 
     private Board board;
