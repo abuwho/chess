@@ -5,10 +5,12 @@ import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 
 
 @Entity
+@Table(name = "players")
 public class Player {
     private @Id @GeneratedValue Long id;
 

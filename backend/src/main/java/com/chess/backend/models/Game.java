@@ -116,12 +116,4 @@ public class Game {
         board.printBoard();
     }
 
-    public static void main(String[] args) {
-        Game game = new Game();
-        game.printState();
-        game.movePiece(1, 0, 3, 6);
-        game.printState();
-        System.out.println(game.toFenString());
-
-    }
 }
