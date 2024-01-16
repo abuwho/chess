@@ -1,5 +1,6 @@
 package com.chess.backend.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
@@ -7,19 +8,23 @@ public class Game {
     private Board board;
     private Player whitePlayer;
     private Player blackPlayer;
-    private int turn;
+    private int turn; // 1 -> white player's turn, 0 -> black player's turn
+    private List<Move> moves;
 
     public Game() {
         this.board = new Board();
         this.whitePlayer = null;
         this.blackPlayer = null;
         this.turn = 1;
+        this.moves = new ArrayList<Move>();
     }
 
     public Game(Player whitePlayer, Player blackPlayer) {
         this.board = new Board();
         this.whitePlayer = whitePlayer;
         this.blackPlayer = blackPlayer;
+        this.turn = 1;
+        this.moves = new ArrayList<Move>();
     }
 
     public Board getBoard() {
@@ -55,27 +60,37 @@ public class Game {
     }
 
     public void toggleTurn() {
-        if (this.turn == 0) this.turn = 1;
-        else this.turn = 0;
+        if (this.turn == 0) this.setTurn(1);
+        else this.setTurn(0);
+    }
+
+    public List<Move> getMoves() {
+        return this.moves;
+    }
+
+    public void setMoves(List<Move> moves) {
+        this.moves = moves;
     }
 
     public void movePiece(int oldRow, int oldCol, int newRow, int newCol) {
         Piece piece = board.getPiece(oldRow, oldCol);
         Move move = new Move(piece, oldRow, oldCol, newRow, newCol);
-        try {
+
+        
+        if ((piece.getColor() == PieceColor.BLACK && this.turn == 0) || (piece.getColor() == PieceColor.WHITE && this.turn == 1)) {
             List<Move> validMoves = piece.getValidMoves(board);
 
             for (Move mv : validMoves) {
                 if (mv.equals(move)) {
                     board.setPiece(newRow, newCol, piece);
                     board.setPiece(oldRow, oldCol, new EmptySquare(PieceColor.NULL, oldRow, oldCol, PieceType.EMPTY));
+                    this.toggleTurn();
+                    this.moves.add(mv);
                 }
             }
-            this.toggleTurn();
-
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Invalid move: list of valid moves does not include the tried move.");
+        } else {
+            System.out.println("Invalid move: Player tried to make a move when it is not their turn.");
         }
     }
 
@@ -114,6 +129,21 @@ public class Game {
 
     public void printState() {
         board.printBoard();
+    }
+
+    public static void main(String args[]) {
+
+        Game game = new Game();
+        Player p1 = new Player("alice", "alice@alice.com");
+        Player p2 = new Player("bob", "bob@bob.com");
+
+        game.setWhitePlayer(p1);
+        game.setBlackPlayer(p2);
+
+        System.out.println( game.getMoves());
+        game.movePiece(6, 0, 2, 0);
+        game.printState();
+
     }
 
 }

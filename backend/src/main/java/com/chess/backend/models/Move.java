@@ -64,11 +64,11 @@ public class Move {
 
         Move move = (Move) obj;
 
-        if (move.getStartRow() == this.getStartRow() && move.getStartCol() == this.getStartCol() && move.getEndRow() == this.getEndRow() && move.getEndCol() == this.getEndCol() && move.getPiece().equals(this.getPiece())) {
+        if (move.getStartRow() == this.getStartRow() && move.getStartCol() == this.getStartCol() && move.getEndRow() == this.getEndRow() && move.getEndCol() == this.getEndCol() && move.getPiece().getType().equals(this.getPiece().getType())) {
             return true;
         }
         
-        return true;
+        return false;
     }
 
 }

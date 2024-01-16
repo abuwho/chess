@@ -18,7 +18,7 @@ public class Player {
 
     private String email;
 
-    public Player () {};
+    public Player () {}
 
     public Player (String userName, String email) {
         this.userName = userName;
