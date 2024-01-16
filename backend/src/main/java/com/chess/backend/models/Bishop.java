@@ -9,6 +9,7 @@ public class Bishop extends Piece {
         super(color, row, col, type);
     }
 
+    
     @Override
     public Boolean isFirstMove() {
         return ((this.getColor() == PieceColor.WHITE && this.getRow() == 7 && this.getCol() == 2)

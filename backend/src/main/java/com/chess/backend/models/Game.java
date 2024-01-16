@@ -86,19 +86,20 @@ public class Game {
                     board.setPiece(oldRow, oldCol, new EmptySquare(PieceColor.NULL, oldRow, oldCol, PieceType.EMPTY));
                     this.toggleTurn();
                     this.moves.add(mv);
+                    break;
                 }
             }
-            System.out.println("Invalid move: list of valid moves does not include the tried move.");
         } else {
             System.out.println("Invalid move: Player tried to make a move when it is not their turn.");
         }
     }
 
+    // Implemented using the logic descriped on the Wiki page https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation
     public String toFenString() {
 
         StringBuilder fenString = new StringBuilder();
 
-        // 1. to indicate positions of pieces
+        // 1. Piece placement data
         for (int i = 0; i < 8; i++) {
             int emptySquares = 0;
             for (int j = 0; j < 8; j++) {
@@ -119,13 +120,13 @@ public class Game {
         }
         fenString.append(' ');
 
-        // 2. to indicate whose turn it is now: 
+        // 2. Active color
         if (this.getTurn() == GameTurn.WHITE) fenString.append('w');
         else fenString.append('b');
         fenString.append(' ');
 
 
-        // 3. to indicate castling capability (https://en.wikipedia.org/wiki/Castling)
+        // 3. Castling availability (https://en.wikipedia.org/wiki/Castling)
         Boolean canWhiteKingSideCastle = this.board.getPiece(7, 4).isFirstMove() && this.board.getPiece(7, 7).isFirstMove();
         Boolean canWhiteQueenSideCastle = this.board.getPiece(7, 4).isFirstMove() && this.board.getPiece(7, 0).isFirstMove();
         Boolean canBlackKingSideCastle = this.board.getPiece(0, 4).isFirstMove() && this.board.getPiece(0, 7).isFirstMove();
@@ -143,8 +144,29 @@ public class Game {
         // eventually just add a space sequence
         fenString.append(' ');
 
-        
+        // 4. En passant target square (To-do)
+        if (this.getMoves().size() > 0) {
+            Move latestMove = this.moves.get(moves.size() - 1);
 
+            char[] cols = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+
+            if (latestMove.getPiece().getType() == PieceType.PAWN && Math.abs(latestMove.getStartRow() - latestMove.getEndRow()) == 2) {
+                fenString.append(cols[latestMove.getPiece().getCol()]);
+                if (latestMove.getPiece().getColor() == PieceColor.WHITE) {
+                    fenString.append(latestMove.getEndRow() - 1);
+                } else if (latestMove.getPiece().getColor() == PieceColor.BLACK) {
+                    fenString.append(8 - latestMove.getEndRow() + 1);
+                }
+            } else {
+                fenString.append('-');
+            }
+        } else {
+            fenString.append('-');
+        }
+        // eventually just add a space sequence
+        fenString.append(' ');
+
+    
         return fenString.toString();
     }
 
@@ -160,13 +182,13 @@ public class Game {
 
     public static void main(String args[]) {
 
-        Game game = new Game();
         Player p1 = new Player("alice", "alice@alice.com");
         Player p2 = new Player("bob", "bob@bob.com");
 
+        Game game = new Game(p1, p2);
+
         game.setWhitePlayer(p1);
         game.setBlackPlayer(p2);
-
         System.out.println(game.toFenString()); 
 
     
@@ -174,8 +196,11 @@ public class Game {
         game.movePiece(6, 0, 4, 0);
         game.printState();
 
-        System.out.println(game.toFenString()); 
+        System.out.println(game.toFenString());
+
+        game.movePiece(1, 0, 3, 0);
+        game.printState();
+        System.out.println(game.toFenString());
 
     }
-
 }

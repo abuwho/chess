@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Bishop",
+            "request": "launch",
+            "mainClass": "com.chess.backend.models.Bishop",
+            "projectName": "backend"
+        },
+        {
+            "type": "java",
             "name": "Move",
             "request": "launch",
             "mainClass": "com.chess.backend.models.Move",
