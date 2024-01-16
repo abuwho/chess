@@ -7,7 +7,15 @@ public class Rook extends Piece {
     public Rook(PieceColor color, int row, int col, PieceType type) {
         super(color, row, col, type);
     }
-    
+
+    @Override
+    public Boolean isFirstMove() {
+        return ((this.getColor() == PieceColor.WHITE && this.getRow() == 7 && this.getCol() == 0)
+            || (this.getColor() == PieceColor.WHITE && this.getRow() == 7 && this.getCol() == 7)
+            || (this.getColor() == PieceColor.BLACK && this.getRow() == 0 && this.getCol() == 0)
+            || (this.getColor() == PieceColor.BLACK && this.getRow() == 0 && this.getCol() == 7)
+            );
+    }
     
     @Override
     public List<Move> getValidMoves(Board board) {

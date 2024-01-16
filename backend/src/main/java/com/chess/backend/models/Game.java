@@ -125,7 +125,25 @@ public class Game {
         fenString.append(' ');
 
 
-        // 3.
+        // 3. to indicate castling capability (https://en.wikipedia.org/wiki/Castling)
+        Boolean canWhiteKingSideCastle = this.board.getPiece(7, 4).isFirstMove() && this.board.getPiece(7, 7).isFirstMove();
+        Boolean canWhiteQueenSideCastle = this.board.getPiece(7, 4).isFirstMove() && this.board.getPiece(7, 0).isFirstMove();
+        Boolean canBlackKingSideCastle = this.board.getPiece(0, 4).isFirstMove() && this.board.getPiece(0, 7).isFirstMove();
+        Boolean canBlackQueenSideCastle = this.board.getPiece(0, 4).isFirstMove() && this.board.getPiece(0, 0).isFirstMove();
+        // a. if White can castle king-side
+        if (canWhiteKingSideCastle) fenString.append('K');
+        // b. if White can castle queen-side
+        if (canWhiteQueenSideCastle) fenString.append('Q');
+        // c. if Black can castle king-side
+        if (canBlackKingSideCastle) fenString.append('k');
+        // d. if Black can castle queen-side
+        if (canBlackQueenSideCastle) fenString.append('q');
+        // if no castling is possible
+        if (!canWhiteKingSideCastle && !canWhiteQueenSideCastle && !canBlackKingSideCastle && !canBlackQueenSideCastle) fenString.append('-');
+        // eventually just add a space sequence
+        fenString.append(' ');
+
+        
 
         return fenString.toString();
     }

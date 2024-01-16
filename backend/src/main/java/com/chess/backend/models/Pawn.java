@@ -8,8 +8,9 @@ public class Pawn extends Piece {
         super(color, row, col, type);
     }
 
-    private Boolean isFirstMove() {
-        return (getColor() == PieceColor.WHITE && getRow() == 6) || (getColor() == PieceColor.BLACK && getRow() == 1);
+    @Override
+    public Boolean isFirstMove() {
+        return (this.getColor() == PieceColor.WHITE && this.getRow() == 6) || (this.getColor() == PieceColor.BLACK && this.getRow() == 1);
     }
     
     public List<Move> getValidMoves() {

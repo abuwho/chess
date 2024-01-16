@@ -10,6 +10,12 @@ public class Queen extends Piece {
     }
 
     @Override
+    public Boolean isFirstMove() {
+        return (this.getColor() == PieceColor.WHITE && this.getRow() == 7 && this.getCol() == 3) || (this.getColor() == PieceColor.BLACK && this.getRow() == 0 && this.getCol() == 3);
+    }
+
+
+    @Override
     public List<Move> getValidMoves(Board board) {
         List<Move> validMoves = new ArrayList<>();
 

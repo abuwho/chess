@@ -8,6 +8,11 @@ public class EmptySquare extends Piece {
     }
 
     @Override
+    public Boolean isFirstMove() {
+        return null; 
+    }
+
+    @Override
     public List<Move> getValidMoves(Board board) {
         throw new UnsupportedOperationException("EmptySquare does not have any moves! EmptySquare.java");
     }

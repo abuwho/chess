@@ -70,4 +70,7 @@ public abstract class Piece {
     // Abstract method to be implemented by each piece subclass separately
     public abstract List<Move> getValidMoves(Board board);
 
+    // Abstract method to be implemented by each piece subclass separately
+    public abstract Boolean isFirstMove();
+    
 }
