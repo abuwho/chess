@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import ChessBoard from './components/ChessBoard.vue';
+import Navbar from './components/Navbar.vue';
 </script>
 
 <template>
   <main>
-    <h1 style="display: flex; justify-content: center;">Chess Game</h1>
-
+    <Navbar />
+    
     <ChessBoard />
   </main>
 </template>
