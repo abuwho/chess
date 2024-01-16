@@ -8,14 +8,14 @@ public class Game {
     private Board board;
     private Player whitePlayer;
     private Player blackPlayer;
-    private int turn; // 1 -> white player's turn, 0 -> black player's turn
+    private GameTurn turn; // 1 -> white player's turn, 0 -> black player's turn
     private List<Move> moves;
 
     public Game() {
         this.board = new Board();
         this.whitePlayer = null;
         this.blackPlayer = null;
-        this.turn = 1;
+        this.turn = GameTurn.WHITE;
         this.moves = new ArrayList<Move>();
     }
 
@@ -23,7 +23,7 @@ public class Game {
         this.board = new Board();
         this.whitePlayer = whitePlayer;
         this.blackPlayer = blackPlayer;
-        this.turn = 1;
+        this.turn = GameTurn.WHITE;
         this.moves = new ArrayList<Move>();
     }
 
@@ -51,17 +51,17 @@ public class Game {
         this.blackPlayer = blackPlayer;
     }
 
-    public int getTurn() {
+    public GameTurn getTurn() {
         return this.turn;
     }
 
-    public void setTurn(int turn) {
+    public void setTurn(GameTurn turn) {
         this.turn = turn;
     }
 
     public void toggleTurn() {
-        if (this.turn == 0) this.setTurn(1);
-        else this.setTurn(0);
+        if (this.turn == GameTurn.WHITE) this.setTurn(GameTurn.BLACK);
+        else this.setTurn(GameTurn.WHITE);
     }
 
     public List<Move> getMoves() {
@@ -77,7 +77,7 @@ public class Game {
         Move move = new Move(piece, oldRow, oldCol, newRow, newCol);
 
         
-        if ((piece.getColor() == PieceColor.BLACK && this.turn == 0) || (piece.getColor() == PieceColor.WHITE && this.turn == 1)) {
+        if ((piece.getColor() == PieceColor.BLACK && this.turn == GameTurn.BLACK) || (piece.getColor() == PieceColor.WHITE && this.turn == GameTurn.WHITE)) {
             List<Move> validMoves = piece.getValidMoves(board);
 
             for (Move mv : validMoves) {
@@ -98,7 +98,7 @@ public class Game {
 
         StringBuilder fenString = new StringBuilder();
 
-        // board
+        // 1. to indicate positions of pieces
         for (int i = 0; i < 8; i++) {
             int emptySquares = 0;
             for (int j = 0; j < 8; j++) {
@@ -117,6 +117,15 @@ public class Game {
 
             if (i != 7) fenString.append('/');
         }
+        fenString.append(' ');
+
+        // 2. to indicate whose turn it is now: 
+        if (this.getTurn() == GameTurn.WHITE) fenString.append('w');
+        else fenString.append('b');
+        fenString.append(' ');
+
+
+        // 3.
 
         return fenString.toString();
     }
@@ -140,9 +149,14 @@ public class Game {
         game.setWhitePlayer(p1);
         game.setBlackPlayer(p2);
 
+        System.out.println(game.toFenString()); 
+
+    
         System.out.println( game.getMoves());
-        game.movePiece(6, 0, 2, 0);
+        game.movePiece(6, 0, 4, 0);
         game.printState();
+
+        System.out.println(game.toFenString()); 
 
     }
 
