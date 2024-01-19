@@ -1,11 +1,8 @@
 <script setup lang="ts">
-
 </script>
 
 <template>
-  <h1></h1>
+  <main>
+    <h1>Homepage</h1>
+  </main>
 </template>
-
-<style scoped>
-
-</style>
