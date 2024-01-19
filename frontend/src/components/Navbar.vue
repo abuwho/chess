@@ -4,7 +4,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/vue/24/outline"
 import { RouterLink } from "vue-router";
 
 const navigation = [
-  { name: 'Create', href: '/', current: true },
+  { name: 'Home', href: '/', current: true },
   { name: 'Game', href: '/game', current: false },
   { name: 'Live', href: '/live', current: false },
   { name: 'Leaderboard', href: '/leaderboard', current: false },
