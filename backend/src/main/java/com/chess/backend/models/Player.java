@@ -1,6 +1,7 @@
 package com.chess.backend.models;
 
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
@@ -11,8 +12,9 @@ import jakarta.persistence.GeneratedValue;
 
 @Entity
 @Table(name = "players")
-public class Player {
-    private @Id @GeneratedValue Long id;
+public class Player implements Serializable {
+    @Id @GeneratedValue
+    private Long id;
 
     private String userName;
 

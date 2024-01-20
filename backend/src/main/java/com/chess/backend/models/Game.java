@@ -1,15 +1,28 @@
 package com.chess.backend.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
-    private Board board;
-    private Player whitePlayer;
-    private Player blackPlayer;
-    private GameTurn turn; // 1 -> white player's turn, 0 -> black player's turn
-    private List<Move> moves;
+@Entity
+@Table(name = "games")
+public class Game implements Serializable {
+
+    @Id @GeneratedValue
+    private Long id;
+
+    private String fenString;
+    private @Transient Board board;
+    private @Transient Player whitePlayer;
+    private @Transient Player blackPlayer;
+    private @Transient GameTurn turn; // 1 -> white player's turn, 0 -> black player's turn
+    private @Transient List<Move> moves;
 
     public Game() {
         this.board = new Board();
@@ -17,6 +30,7 @@ public class Game {
         this.blackPlayer = null;
         this.turn = GameTurn.WHITE;
         this.moves = new ArrayList<Move>();
+        this.fenString = this.toFenString();
     }
 
     public Game(Player whitePlayer, Player blackPlayer) {
@@ -25,6 +39,15 @@ public class Game {
         this.blackPlayer = blackPlayer;
         this.turn = GameTurn.WHITE;
         this.moves = new ArrayList<Move>();
+        this.fenString = this.toFenString();
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getFenString() {
+        return this.fenString;
     }
 
     public Board getBoard() {
@@ -37,6 +60,14 @@ public class Game {
 
     public Player getBlackPlayer() {
         return blackPlayer;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setFenString() {
+        this.fenString = this.toFenString();
     }
 
     public void setBoard(Board board) {
@@ -180,27 +211,32 @@ public class Game {
         board.printBoard();
     }
 
-    public static void main(String args[]) {
+    @Override
+    public String toString() {
+        return "Game{" + "id=" + this.id + ", fenString='" + this.fenString + "'";
+    }
 
-        Player p1 = new Player("alice", "alice@alice.com");
-        Player p2 = new Player("bob", "bob@bob.com");
+    // public static void main(String args[]) {
 
-        Game game = new Game(p1, p2);
+    //     Player p1 = new Player("alice", "alice@alice.com");
+    //     Player p2 = new Player("bob", "bob@bob.com");
 
-        game.setWhitePlayer(p1);
-        game.setBlackPlayer(p2);
-        System.out.println(game.toFenString()); 
+    //     Game game = new Game(p1, p2);
+
+    //     game.setWhitePlayer(p1);
+    //     game.setBlackPlayer(p2);
+    //     System.out.println(game.toFenString()); 
 
     
-        System.out.println( game.getMoves());
-        game.movePiece(6, 0, 4, 0);
-        game.printState();
+    //     System.out.println( game.getMoves());
+    //     game.movePiece(6, 0, 4, 0);
+    //     game.printState();
 
-        System.out.println(game.toFenString());
+    //     System.out.println(game.toFenString());
 
-        game.movePiece(1, 0, 3, 0);
-        game.printState();
-        System.out.println(game.toFenString());
+    //     game.movePiece(1, 0, 3, 0);
+    //     game.printState();
+    //     System.out.println(game.toFenString());
 
-    }
+    // }
 }
