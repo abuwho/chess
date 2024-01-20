@@ -197,6 +197,13 @@ public class Game implements Serializable {
         // eventually just add a space sequence
         fenString.append(' ');
 
+        // 5. Halfmove clock: The number of halfmoves since the last capture or pawn advance, used for the fifty-move rule. 
+        fenString.append("halfmove");
+        fenString.append(' ');
+
+
+        // 6. Fullmove number: The number of the full moves. It starts at 1 and is incremented after Black's move.
+        fenString.append(this.moves.size() + 1);
     
         return fenString.toString();
     }
@@ -216,27 +223,4 @@ public class Game implements Serializable {
         return "Game{" + "id=" + this.id + ", fenString='" + this.fenString + "'";
     }
 
-    // public static void main(String args[]) {
-
-    //     Player p1 = new Player("alice", "alice@alice.com");
-    //     Player p2 = new Player("bob", "bob@bob.com");
-
-    //     Game game = new Game(p1, p2);
-
-    //     game.setWhitePlayer(p1);
-    //     game.setBlackPlayer(p2);
-    //     System.out.println(game.toFenString()); 
-
-    
-    //     System.out.println( game.getMoves());
-    //     game.movePiece(6, 0, 4, 0);
-    //     game.printState();
-
-    //     System.out.println(game.toFenString());
-
-    //     game.movePiece(1, 0, 3, 0);
-    //     game.printState();
-    //     System.out.println(game.toFenString());
-
-    // }
 }
